@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Image from 'next/image'
 
 class Navbar extends Component<any, any> {
 
@@ -10,8 +9,8 @@ class Navbar extends Component<any, any> {
   render() {
     return (
       <div className="w-screen flex flex-row items-center p-1 justify-between shadow-xs my-4">
-      <div className="md:flex">
-        <Image src="/Logo_WAVECT_white_sym.png" width='auto' height='50px' objectFit='contain' />
+      <div className="md:flex ml-5">
+        <img src="/Logo_WAVECT_white_sym.png" width='auto' height='50px' className='object-contain' />
       </div>
         <div className="flex flex-row-reverse mr-8 md:flex">
           <a href="https://wavect.io" target="_blank" title="Back to the main homepage">
