@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app'
 import '../styles/index.css'
 import 'react-notifications/lib/notifications.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {NotificationContainer} from 'react-notifications';
 import React, { Component } from 'react'
 import Web3 from 'web3'
 import DaiToken from '../abis/DaiToken.json'
@@ -9,6 +9,9 @@ import DappToken from '../abis/DappToken.json'
 import TokenFarm from '../abis/TokenFarm.json'
 import Navbar from './api/Navbar/Navbar'
 import Main from './api/Main/Main'
+import { LoadingIndicator } from './api/LoadingIndicator/LoadingIndicator';
+import { NotificationService } from 'src/services/Notification.service';
+import { EnvironmentService } from 'src/services/Environment.service';
 
 class App extends Component<AppProps, any> {
 
@@ -16,11 +19,6 @@ class App extends Component<AppProps, any> {
     await this.loadBlockchainData(
       await this.loadWeb3()
     )
-  }
-
-  showError(msg: string) {
-    NotificationManager.error(msg, null, 5000);
-    console.error(msg);
   }
 
   async loadBlockchainData(web3: any) {
@@ -38,7 +36,7 @@ class App extends Component<AppProps, any> {
         let daiTokenBalance = await daiToken.methods.balanceOf(this.state.account).call()
         this.setState({ daiTokenBalance: daiTokenBalance.toString() })
       } else {
-        this.showError('DaiToken contract not deployed to detected network.')
+        NotificationService.showError('DaiToken contract not deployed to detected network.')
       }
 
       // Load DappToken
@@ -49,7 +47,7 @@ class App extends Component<AppProps, any> {
         let dappTokenBalance = await dappToken.methods.balanceOf(this.state.account).call()
         this.setState({ dappTokenBalance: dappTokenBalance.toString() })
       } else {
-        this.showError('DappToken contract not deployed to detected network.')
+        NotificationService.showError('DappToken contract not deployed to detected network.')
       }
 
       // Load TokenFarm
@@ -60,7 +58,7 @@ class App extends Component<AppProps, any> {
         let stakingBalance = await tokenFarm.methods.stakingBalance(this.state.account).call()
         this.setState({ stakingBalance: stakingBalance.toString() })
       } else {
-        this.showError('TokenFarm contract not deployed to detected network.')
+        NotificationService.showError('TokenFarm contract not deployed to detected network.')
       }
     }
     this.setState({ loading: false })
@@ -75,7 +73,7 @@ class App extends Component<AppProps, any> {
       (window as any).web3 = new Web3((window as any).web3.currentProvider)
     }
     else {
-      this.showError('Non-Ethereum browser detected. You should consider trying MetaMask!')
+      NotificationService.showError('Non-Ethereum browser detected. You should consider trying MetaMask!')
     }
     return (window as any).web3;
   }
@@ -113,9 +111,10 @@ class App extends Component<AppProps, any> {
   render() {
     let content
     if(this.state.loading) {
-      content = <p id="loader" className="text-center">Loading...</p>
+      content =  <LoadingIndicator />
     } else {
       content = <Main
+        showMaintenanceMode={EnvironmentService.isProductionEnv()}
         daiTokenBalance={this.state.daiTokenBalance}
         dappTokenBalance={this.state.dappTokenBalance}
         stakingBalance={this.state.stakingBalance}

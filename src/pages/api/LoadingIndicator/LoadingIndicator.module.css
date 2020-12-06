@@ -1,0 +1,18 @@
+@keyframes loader-rotate {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.loader {
+    border-right-color: transparent;
+    animation: loader-rotate 1s linear infinite;
+
+    /* Center */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
