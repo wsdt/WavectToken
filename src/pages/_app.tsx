@@ -16,9 +16,14 @@ import { EnvironmentService } from 'src/services/Environment.service';
 class App extends Component<AppProps, any> {
 
   async componentDidMount() {
-    await this.loadBlockchainData(
-      await this.loadWeb3()
-    )
+    try {
+      await this.loadBlockchainData(
+        await this.loadWeb3()
+      )
+    } catch(err) {
+      NotificationService.showError('You need to allow your browser to connect to our Web3 service.')
+      console.error(err);
+    }
   }
 
   async loadBlockchainData(web3: any) {
@@ -66,18 +71,18 @@ class App extends Component<AppProps, any> {
   }
 
   async loadWeb3() {
-    if ((window as any).ethereum) {
+      if ((window as any).ethereum) {
 
-      (window as any).web3 = new Web3((window as any).ethereum)
-      await (window as any).ethereum.enable()
-    }
-    else if ((window as any).web3) {
-      (window as any).web3 = new Web3((window as any).web3.currentProvider)
-    }
-    else {
-      NotificationService.showError('Non-Ethereum browser detected. You should consider trying MetaMask!')
-    }
-    return (window as any).web3;
+        (window as any).web3 = new Web3((window as any).ethereum)
+        await (window as any).ethereum.enable()
+      }
+      else if ((window as any).web3) {
+        (window as any).web3 = new Web3((window as any).web3.currentProvider)
+      }
+      else {
+        NotificationService.showError('Non-Ethereum browser detected. You should consider trying MetaMask!')
+      }
+      return (window as any).web3;
   }
 
   stakeTokens = (amount) => {
