@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Image from 'next/image'
 import { BgVideo } from '../BgVideo/BgVideo';
 
 class Main extends Component<any, any> {
