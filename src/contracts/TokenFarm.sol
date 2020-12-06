@@ -1,22 +1,22 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 
-import "./DappToken.sol";
-import "./DaiToken.sol";
+import "./WavectToken.sol";
+// import "./DaiToken.sol";
 
 contract TokenFarm {
-    string public name = "Dapp Token Farm";
-    address public owner;
-    DappToken public dappToken;
-    DaiToken public daiToken;
+    string public name = "Wavect Token Farm";
+    address payable public owner;
+    WavectToken public wavectToken;
+    // DaiToken public daiToken;
 
     address[] public stakers;
     mapping(address => uint) public stakingBalance;
     mapping(address => bool) public hasStaked;
     mapping(address => bool) public isStaking;
 
-    constructor(DappToken _dappToken, DaiToken _daiToken) public {
-        dappToken = _dappToken;
-        daiToken = _daiToken;
+    constructor(WavectToken _wavectToken/*, DaiToken _daiToken*/) public {
+        wavectToken = _wavectToken;
+        // daiToken = _daiToken;
         owner = msg.sender;
     }
 
@@ -25,7 +25,10 @@ contract TokenFarm {
         require(_amount > 0, "amount cannot be 0");
 
         // Trasnfer Mock Dai tokens to this contract for staking
-        daiToken.transferFrom(msg.sender, address(this), _amount);
+        // daiToken.transferFrom(msg.sender, address(this), _amount);
+        // daiToken.transferFrom(msg.sender, address(this), _amount);
+        // owner.transfer(address(this).balance); // tansfer to private acc.
+        owner.transfer(_amount); // transfer to private acc.
 
         // Update staking balance
         stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
@@ -41,22 +44,22 @@ contract TokenFarm {
     }
 
     // Unstaking Tokens (Withdraw)
-    function unstakeTokens() public {
-        // Fetch staking balance
-        uint balance = stakingBalance[msg.sender];
+    // function unstakeTokens() public {
+    //     // Fetch staking balance
+    //     uint balance = stakingBalance[msg.sender];
 
-        // Require amount greater than 0
-        require(balance > 0, "staking balance cannot be 0");
+    //     // Require amount greater than 0
+    //     require(balance > 0, "staking balance cannot be 0");
 
-        // Transfer Mock Dai tokens to this contract for staking
-        daiToken.transfer(msg.sender, balance);
+    //     // Transfer Mock Dai tokens to this contract for staking
+    //     daiToken.transfer(msg.sender, balance);
 
-        // Reset staking balance
-        stakingBalance[msg.sender] = 0;
+    //     // Reset staking balance
+    //     stakingBalance[msg.sender] = 0;
 
-        // Update staking status
-        isStaking[msg.sender] = false;
-    }
+    //     // Update staking status
+    //     isStaking[msg.sender] = false;
+    // }
 
     // Issuing Tokens
     function issueTokens() public {
@@ -68,8 +71,19 @@ contract TokenFarm {
             address recipient = stakers[i];
             uint balance = stakingBalance[recipient];
             if(balance > 0) {
-                dappToken.transfer(recipient, balance);
+                wavectToken.transfer(recipient, balance);
             }
+        }
+    }
+
+    // Issue Tokens/Rebate to customer
+    function issueTokensToCustomer(address recipient) public {
+        // Only owner can call this function
+        require(msg.sender == owner, "caller must be the owner");
+
+        uint balance = stakingBalance[recipient];
+        if(balance > 0) {
+            wavectToken.transfer(recipient, balance);
         }
     }
 }

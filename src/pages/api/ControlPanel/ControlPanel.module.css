@@ -1,0 +1,16 @@
+
+#controlPanelContainer {
+    color: #fff;
+}
+
+.header {
+    font-size: 2em;
+}
+
+.p {
+    padding-top: 15px;
+}
+
+.paymentInput {
+    padding-top: 20px;
+}

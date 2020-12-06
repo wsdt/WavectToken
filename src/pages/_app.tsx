@@ -4,8 +4,8 @@ import 'react-notifications/lib/notifications.css';
 import {NotificationContainer} from 'react-notifications';
 import React, { Component } from 'react'
 import Web3 from 'web3'
-import DaiToken from '../abis/DaiToken.json'
-import DappToken from '../abis/DappToken.json'
+// import DaiToken from '../abis/DaiToken.json'
+import WavectToken from '../abis/WavectToken.json'
 import TokenFarm from '../abis/TokenFarm.json'
 import Navbar from './api/Navbar/Navbar'
 import Main from './api/Main/Main'
@@ -29,25 +29,26 @@ class App extends Component<AppProps, any> {
       const networkId = await web3.eth.net.getId()
 
       // Load DaiToken
-      const daiTokenData = DaiToken.networks[networkId]
-      if(daiTokenData) {
-        const daiToken = new web3.eth.Contract(DaiToken.abi, daiTokenData.address)
-        this.setState({ daiToken })
-        let daiTokenBalance = await daiToken.methods.balanceOf(this.state.account).call()
-        this.setState({ daiTokenBalance: daiTokenBalance.toString() })
-      } else {
-        NotificationService.showError('DaiToken contract not deployed to detected network.')
-      }
+      // const daiTokenData = DaiToken.networks[networkId]
+      // if(daiTokenData) {
+      //   const daiToken = new web3.eth.Contract(DaiToken.abi, daiTokenData.address)
+      //   this.setState({ daiToken })
+      //   let daiTokenBalance = await daiToken.methods.balanceOf(this.state.account).call()
+      //   this.setState({ daiTokenBalance: daiTokenBalance.toString() })
+      // } else {
+      //   NotificationService.showError('DaiToken contract not deployed to detected network.')
+      // }
 
-      // Load DappToken
-      const dappTokenData = DappToken.networks[networkId]
-      if(dappTokenData) {
-        const dappToken = new web3.eth.Contract(DappToken.abi, dappTokenData.address)
-        this.setState({ dappToken })
-        let dappTokenBalance = await dappToken.methods.balanceOf(this.state.account).call()
-        this.setState({ dappTokenBalance: dappTokenBalance.toString() })
+      // Load WavectToken
+
+      const wavectTokenData = WavectToken.networks[networkId]
+      if(wavectTokenData) {
+        const wavectToken = new web3.eth.Contract(WavectToken.abi, wavectTokenData.address)
+        this.setState({ wavectToken: wavectToken })
+        let wavectTokenBalance = await wavectToken.methods.balanceOf(this.state.account).call()
+        this.setState({ wavectTokenBalance: wavectTokenBalance.toString() })
       } else {
-        NotificationService.showError('DappToken contract not deployed to detected network.')
+        NotificationService.showError('WavectToken contract not deployed to detected network.')
       }
 
       // Load TokenFarm
@@ -66,6 +67,7 @@ class App extends Component<AppProps, any> {
 
   async loadWeb3() {
     if ((window as any).ethereum) {
+
       (window as any).web3 = new Web3((window as any).ethereum)
       await (window as any).ethereum.enable()
     }
@@ -80,19 +82,23 @@ class App extends Component<AppProps, any> {
 
   stakeTokens = (amount) => {
     this.setState({ loading: true })
-    this.state.daiToken.methods.approve(this.state.tokenFarm._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.state.tokenFarm.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-        this.setState({ loading: false })
-      })
-    })
+    this.state.tokenFarm.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+          this.setState({ loading: false })
+        })
+
+    // this.state.daiToken.methods.approve(this.state.tokenFarm._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+    //   this.state.tokenFarm.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+    //     this.setState({ loading: false })
+    //   })
+    // })
   }
 
-  unstakeTokens = (amount) => {
-    this.setState({ loading: true })
-    this.state.tokenFarm.methods.unstakeTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.setState({ loading: false })
-    })
-  }
+  // unstakeTokens = (amount) => {
+  //   this.setState({ loading: true })
+  //   this.state.tokenFarm.methods.unstakeTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
+  //     this.setState({ loading: false })
+  //   })
+  // }
 
   constructor(props) {
     super(props)
@@ -115,20 +121,19 @@ class App extends Component<AppProps, any> {
     } else {
       content = <Main
         showMaintenanceMode={EnvironmentService.isProductionEnv()}
-        daiTokenBalance={this.state.daiTokenBalance}
-        dappTokenBalance={this.state.dappTokenBalance}
+        wavectTokenBalance={this.state.dappTokenBalance}
         stakingBalance={this.state.stakingBalance}
         stakeTokens={this.stakeTokens}
-        unstakeTokens={this.unstakeTokens}
       />
     }
 
     return (
+      <>
       <div>
         <Navbar account={this.state.account} />
         <div className="container-fluid mt-5">
           <div className="row">
-            <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
+            <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '85%' }}>
               <div className="content mr-auto ml-auto">
 
                 {content}
@@ -139,6 +144,7 @@ class App extends Component<AppProps, any> {
         </div>
         <NotificationContainer />
       </div>
+      </>
     );
   }
 }
