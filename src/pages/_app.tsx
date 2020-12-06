@@ -24,44 +24,45 @@ class App extends Component<AppProps, any> {
   }
 
   async loadBlockchainData(web3: any) {
-    const accounts = await web3.eth.getAccounts()
-    this.setState({ account: accounts[0] })
+    if (web3) {
+      const accounts = await web3.eth.getAccounts()
+      this.setState({ account: accounts[0] })
 
-    const networkId = await web3.eth.net.getId()
+      const networkId = await web3.eth.net.getId()
 
-    // Load DaiToken
-    const daiTokenData = DaiToken.networks[networkId]
-    if(daiTokenData) {
-      const daiToken = new web3.eth.Contract(DaiToken.abi, daiTokenData.address)
-      this.setState({ daiToken })
-      let daiTokenBalance = await daiToken.methods.balanceOf(this.state.account).call()
-      this.setState({ daiTokenBalance: daiTokenBalance.toString() })
-    } else {
-      this.showError('DaiToken contract not deployed to detected network.')
+      // Load DaiToken
+      const daiTokenData = DaiToken.networks[networkId]
+      if(daiTokenData) {
+        const daiToken = new web3.eth.Contract(DaiToken.abi, daiTokenData.address)
+        this.setState({ daiToken })
+        let daiTokenBalance = await daiToken.methods.balanceOf(this.state.account).call()
+        this.setState({ daiTokenBalance: daiTokenBalance.toString() })
+      } else {
+        this.showError('DaiToken contract not deployed to detected network.')
+      }
+
+      // Load DappToken
+      const dappTokenData = DappToken.networks[networkId]
+      if(dappTokenData) {
+        const dappToken = new web3.eth.Contract(DappToken.abi, dappTokenData.address)
+        this.setState({ dappToken })
+        let dappTokenBalance = await dappToken.methods.balanceOf(this.state.account).call()
+        this.setState({ dappTokenBalance: dappTokenBalance.toString() })
+      } else {
+        this.showError('DappToken contract not deployed to detected network.')
+      }
+
+      // Load TokenFarm
+      const tokenFarmData = TokenFarm.networks[networkId]
+      if(tokenFarmData) {
+        const tokenFarm = new web3.eth.Contract(TokenFarm.abi, tokenFarmData.address)
+        this.setState({ tokenFarm })
+        let stakingBalance = await tokenFarm.methods.stakingBalance(this.state.account).call()
+        this.setState({ stakingBalance: stakingBalance.toString() })
+      } else {
+        this.showError('TokenFarm contract not deployed to detected network.')
+      }
     }
-
-    // Load DappToken
-    const dappTokenData = DappToken.networks[networkId]
-    if(dappTokenData) {
-      const dappToken = new web3.eth.Contract(DappToken.abi, dappTokenData.address)
-      this.setState({ dappToken })
-      let dappTokenBalance = await dappToken.methods.balanceOf(this.state.account).call()
-      this.setState({ dappTokenBalance: dappTokenBalance.toString() })
-    } else {
-      this.showError('DappToken contract not deployed to detected network.')
-    }
-
-    // Load TokenFarm
-    const tokenFarmData = TokenFarm.networks[networkId]
-    if(tokenFarmData) {
-      const tokenFarm = new web3.eth.Contract(TokenFarm.abi, tokenFarmData.address)
-      this.setState({ tokenFarm })
-      let stakingBalance = await tokenFarm.methods.stakingBalance(this.state.account).call()
-      this.setState({ stakingBalance: stakingBalance.toString() })
-    } else {
-      this.showError('TokenFarm contract not deployed to detected network.')
-    }
-
     this.setState({ loading: false })
   }
 
