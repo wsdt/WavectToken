@@ -22,7 +22,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx", "test/TokenFarm.test.js"
   ],
   "exclude": [
     "node_modules"

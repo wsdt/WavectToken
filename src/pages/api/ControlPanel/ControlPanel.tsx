@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { BlockchainService } from "src/services/Blockchain.service";
 import styles from './ControlPanel.module.css';
 import { IControlPanelProps } from "./IControlPanel.props";
 import { IControlPanelState } from "./IControlPanel.state";
@@ -20,7 +21,7 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
         const submitPayment = () => {
             let amount = this.state.ethAmountToPay.toString()
             amount = (window as any).web3.utils.toWei(amount, 'Ether')
-            this.props.stakeTokens(amount)
+            BlockchainService.stakeTokens(amount)
         }
 
         return (<>
@@ -66,55 +67,5 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
                 </div>
                 { this.loadPaymentInput() }
         </div>
-    //     return <><table className="table table-borderless text-muted text-center">
-    //     <thead>
-    //       <tr>
-    //         <th scope="col">Staking Balance</th>
-    //         <th scope="col">Reward Balance</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       <tr>
-    //         <td>{(window as any).web3.utils.fromWei(this.props.stakingBalance, 'Ether')} mDAI</td>
-    //         <td>{(window as any).web3.utils.fromWei(this.props.dappTokenBalance, 'Ether')} DAPP</td>
-    //       </tr>
-    //     </tbody>
-    //   </table>
-    
-    //   <div className="card mb-4" >
-    
-    //     <div className="card-body">
-    
-    //       <form className="mb-3" onSubmit={(event) => {
-    //           event.preventDefault()
-    //           let amount
-    //           amount = this.input.value.toString()
-    //           amount = (window as any).web3.utils.toWei(amount, 'Ether')
-    //           this.props.stakeTokens(amount)
-    //         }}>
-    //         <div>
-    //           <label className="float-left"><b>Stake Tokens</b></label>
-    //           <span className="float-right text-muted">
-    //             Balance: {(window as any).web3.utils.fromWei(this.props.daiTokenBalance, 'Ether')}
-    //           </span>
-    //         </div>
-    //         <div className="input-group mb-4">
-    //           <input
-    //             type="text"
-    //             ref={(input) => { this.input = input }}
-    //             className="form-control form-control-lg"
-    //             placeholder="0"
-    //             required />
-    //           <div className="input-group-append">
-    //             <div className="input-group-text">
-    //               <img src='/dai.png' width='auto' height='32' alt=""/>
-    //               &nbsp;&nbsp;&nbsp; mDAI
-    //             </div>
-    //           </div>
-    //         </div>
-    //         <button type="submit" className="btn btn-primary btn-block btn-lg">STAKE!</button>
-    //       </form>
-    //     </div> 
-    //       </div></>
     }
 }

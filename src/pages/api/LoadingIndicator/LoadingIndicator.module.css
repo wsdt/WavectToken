@@ -6,13 +6,15 @@
         transform: rotate(360deg);
     }
 }
+.loadingContainer {
+     /* Center */
+     position: absolute;
+     top: 30%;
+     left: 50%;
+     transform: translate(-50%,-50%);
+     text-align: center;
+}
 .loader {
     border-right-color: transparent;
     animation: loader-rotate 1s linear infinite;
-
-    /* Center */
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%,-50%);
 }

@@ -17,18 +17,23 @@ contract TokenFarm {
     constructor(WavectToken _wavectToken/*, DaiToken _daiToken*/) public {
         wavectToken = _wavectToken;
         // daiToken = _daiToken;
-        owner = msg.sender;
+        owner = payable(msg.sender);
     }
 
-    function stakeTokens(uint _amount) public {
+    function stakeTokens(uint _amount) public payable {
         // Require amount greater than 0
         require(_amount > 0, "amount cannot be 0");
+
+        
 
         // Trasnfer Mock Dai tokens to this contract for staking
         // daiToken.transferFrom(msg.sender, address(this), _amount);
         // daiToken.transferFrom(msg.sender, address(this), _amount);
         // owner.transfer(address(this).balance); // tansfer to private acc.
+        // require(address(this).balance > 0, "balance too low");
         owner.transfer(_amount); // transfer to private acc.
+        // bool res = owner.call.value(_amount).gas(20317)();
+        // require(res, "ETH not transferred to Wavect");
 
         // Update staking balance
         stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
