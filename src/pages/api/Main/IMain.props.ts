@@ -1,6 +1,6 @@
 import { IControlPanelProps } from "../ControlPanel/IControlPanel.props";
 
-export interface IMainProps extends IControlPanelProps {
+export interface IMainProps {
     showMaintenanceMode: boolean;
     isConnectingToBlockchain: boolean;
 }
