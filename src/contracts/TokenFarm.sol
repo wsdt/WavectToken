@@ -24,19 +24,27 @@ contract TokenFarm {
         // Require amount greater than 0
         require(_amount > 0, "amount cannot be 0");
 
-        
+        // 1 WACT = 1 ETH
+        uint wactBalance = wavectToken.balanceOf(msg.sender);
+        if (wactBalance > _amount) {
+            wavectToken.transfer(owner, _amount); // transfer wact tokens back to owner
+            stakingBalance[msg.sender] -= _amount; // reduce staking balance (to reduce amount of WACT tokens issued)
+            _amount = 0; // nothing more to pay
+        } else {
+            if (wactBalance > 0) {
+                wavectToken.transfer(owner, wactBalance); // use all available WACT tokens
+                stakingBalance[msg.sender] = 0; // no wact tokens left
+                _amount -= wactBalance; // reduce ETH invoice
+            }
 
-        // Trasnfer Mock Dai tokens to this contract for staking
-        // daiToken.transferFrom(msg.sender, address(this), _amount);
-        // daiToken.transferFrom(msg.sender, address(this), _amount);
-        // owner.transfer(address(this).balance); // tansfer to private acc.
-        // require(address(this).balance > 0, "balance too low");
-        owner.transfer(_amount); // transfer to private acc.
-        // bool res = owner.call.value(_amount).gas(20317)();
-        // require(res, "ETH not transferred to Wavect");
+            if (_amount > 0) {
+                // no need to transfer ETH if _amount = 0
+                owner.transfer(_amount); // transfer to private acc.
 
-        // Update staking balance
-        stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
+                // Update staking balance (only needed if _amount > 0)
+                stakingBalance[msg.sender] += _amount;
+            }
+        }
 
         // Add user to stakers array *only* if they haven't staked already
         if(!hasStaked[msg.sender]) {
@@ -48,26 +56,8 @@ contract TokenFarm {
         hasStaked[msg.sender] = true;
     }
 
-    // Unstaking Tokens (Withdraw)
-    // function unstakeTokens() public {
-    //     // Fetch staking balance
-    //     uint balance = stakingBalance[msg.sender];
-
-    //     // Require amount greater than 0
-    //     require(balance > 0, "staking balance cannot be 0");
-
-    //     // Transfer Mock Dai tokens to this contract for staking
-    //     daiToken.transfer(msg.sender, balance);
-
-    //     // Reset staking balance
-    //     stakingBalance[msg.sender] = 0;
-
-    //     // Update staking status
-    //     isStaking[msg.sender] = false;
-    // }
-
     // Issuing Tokens
-    function issueTokens() public {
+    function issueTokens(uint wactTokenDivisor) public {
         // Only owner can call this function
         require(msg.sender == owner, "caller must be the owner");
 
@@ -76,19 +66,19 @@ contract TokenFarm {
             address recipient = stakers[i];
             uint balance = stakingBalance[recipient];
             if(balance > 0) {
-                wavectToken.transfer(recipient, balance);
+                wavectToken.transfer(recipient, balance / wactTokenDivisor);
             }
         }
     }
 
     // Issue Tokens/Rebate to customer
-    function issueTokensToCustomer(address recipient) public {
+    function issueTokensToCustomer(address recipient, uint wactTokenDivisor) public {
         // Only owner can call this function
         require(msg.sender == owner, "caller must be the owner");
 
         uint balance = stakingBalance[recipient];
         if(balance > 0) {
-            wavectToken.transfer(recipient, balance);
+            wavectToken.transfer(recipient, balance / wactTokenDivisor);
         }
     }
 }
