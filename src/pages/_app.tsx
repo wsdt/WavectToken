@@ -17,11 +17,15 @@ interface IAppState {
 class App extends Component<AppProps, IAppState> {
 
   async componentDidMount() {
-    await BlockchainService.connectToBlockchain();
+    try {
+      await BlockchainService.connectToBlockchain();
+    } finally {
+      // also stop loading in case blockchain network is down (e.g. local ganache)
+      this.setState({...this.state, isConnectingToBlockchain: false});
+    }
+
     Emitter.on(EVENT_BLOCKCHAIN_DATA_CHANGED, async () => {
-      console.log("Fetching acc")
-      this.setState({...this.state, 
-        isConnectingToBlockchain: false, account: await BlockchainService.getCurrentAccount() });
+      this.setState({...this.state, account: await BlockchainService.getCurrentAccount() });
     });
   }
 

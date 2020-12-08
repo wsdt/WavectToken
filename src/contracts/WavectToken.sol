@@ -7,6 +7,7 @@ contract WavectToken is ERC20 {
         ERC20(name, symbol)
         public
     {
+        //_mint(_msgSender(), 1000000000000000000000000);
         _mint(msg.sender, 1000000000000000000000000);
     }
 }
