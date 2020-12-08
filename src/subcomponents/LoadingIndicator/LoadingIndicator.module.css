@@ -14,6 +14,11 @@
      transform: translate(-50%,-50%);
      text-align: center;
 }
+@media only screen and (max-width: 600px) {
+    .loadingContainer {
+        top: 50%;
+    }
+}
 .loader {
     border-right-color: transparent;
     animation: loader-rotate 1s linear infinite;

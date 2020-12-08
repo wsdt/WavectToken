@@ -41,12 +41,12 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
     private loadPaymentInput() { 
         return (<>
         <div className={styles.paymentInput}>
-        <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price</label>
+        <label htmlFor="price" className="block text-sm font-medium text-white">Price</label>
         <div className="mt-1 relative rounded-md shadow-sm">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <span className="text-gray-500 sm:text-sm">Ξ</span>
           </div>
-          <input type="text" name="price" id="price" className="p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md text-black" 
+          <input type="text" name="price" id="price" className="font-bold text-center p-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md text-black" 
             placeholder="0.00" value={this.state.ethAmountToPay} onChange={(event)=>this.inputChangedHandler(event)} />
           <div className="absolute inset-y-0 right-0 flex items-center">
             <label htmlFor="currency" className="sr-only">Currency</label>
@@ -79,10 +79,10 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
                 <span className="tracking-wider text-white bg-blue-400 px-4 py-1 text-sm rounded leading-loose mx-2 font-semibold" title="">
                    <i className="fas fa-award" aria-hidden="true"></i> {this.getRewardBalance()} WACT earned
                 </span>
-                <h1 className={styles.header}>Wavect<sup>®</sup> Token</h1>
+                <h1 className={`mt-5 ${styles.header}`}>Wavect<sup>®</sup> Token</h1>
                 <p className={styles.p}>We at Wavect not only accept certain cryptos such as ETH, BTC or XMR, but even want to encourage our customers to do so.</p>
                 <p className={styles.p}>Therefore, each payment settled in cryptos will be rewarded with so-called Wavect-Tokens which can be redeemed in future projects.</p>
-                <p className={styles.p}>Basically, it's just a futuristic and secure voucher :-). At the moment only Ethereum is supported.</p>
+                <p className={styles.p}>Basically, it's just a futuristic and secure voucher :-). At the moment this app only supports Ethereum directly.</p>
 
                 { this.loadPaymentInput() }
         </div>

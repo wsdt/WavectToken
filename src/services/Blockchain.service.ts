@@ -18,8 +18,6 @@ export class BlockchainService {
             to: BlockchainService._tokenFarmContract.address,
             value: amount,
             });
-        } catch(err) {
-            NotificationService.showError('Could not transfer ETH & stake WACT.', err);
         } finally {
             Emitter.emit(EVENT_BLOCKCHAIN_DATA_CHANGED);
         }

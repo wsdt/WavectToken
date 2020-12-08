@@ -1,13 +1,14 @@
-import { AppProps } from 'next/app'
-import '../styles/index.css'
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer} from 'react-notifications';
 import React, { Component } from 'react'
-import Navbar from './api/Navbar/Navbar'
-import Main from './api/Main/Main'
+import Navbar from '../subcomponents/Navbar/Navbar'
+import Main from '../subcomponents/Main/Main'
 import { EnvironmentService } from 'src/services/Environment.service';
 import { BlockchainService } from 'src/services/Blockchain.service';
 import Emitter, { EVENT_BLOCKCHAIN_DATA_CHANGED } from 'src/services/Event.service';
+import { AppProps } from 'next/dist/next-server/lib/router/router';
+import '../styles/index.css';
+import Router from 'next/dist/next-server/server/router';
 
 interface IAppState {
   isConnectingToBlockchain: boolean;
@@ -31,6 +32,7 @@ class App extends Component<AppProps, IAppState> {
 
   constructor(props) {
     super(props)
+
     this.state = {
       account: '0x0',
       isConnectingToBlockchain: true

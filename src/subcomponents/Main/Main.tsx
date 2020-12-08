@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { BlockchainService } from 'src/services/Blockchain.service';
 import Emitter, { EVENT_BLOCKCHAIN_DATA_CHANGED } from 'src/services/Event.service';
-import { NotificationService } from 'src/services/Notification.service';
 import { BgVideo } from '../BgVideo/BgVideo';
 import { ControlPanel } from '../ControlPanel/ControlPanel';
 import { LoadingIndicator } from '../LoadingIndicator/LoadingIndicator';
