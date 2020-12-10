@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build -o ../public/token",
     "start": "next start",
-    "export": "next build && next export -o ../public/token",
+    "export": "mv ../public/token/.git/ ../public/tmp_token/.git/ && next build && next export -o ../public/token && mv ../public/token/404/index.html ../public/token/index.html && mv ../public/tmp_token/.git/ ../public/token/ && echo 0 > ../public/token/.nojekyll",
     "serve": "serve build",
     "test": "truffle migrate --reset && truffle test"
   },
