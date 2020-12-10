@@ -19,7 +19,5 @@
         top: 50%;
     }
 }
-.loader {
-    border-right-color: transparent;
-    animation: loader-rotate 1s linear infinite;
-}
+
+

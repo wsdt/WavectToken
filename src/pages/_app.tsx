@@ -8,7 +8,7 @@ import { BlockchainService } from 'src/services/Blockchain.service';
 import Emitter, { EVENT_BLOCKCHAIN_DATA_CHANGED } from 'src/services/Event.service';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import '../styles/index.css';
-import Router from 'next/dist/next-server/server/router';
+import Head from 'next/head'
 
 interface IAppState {
   isConnectingToBlockchain: boolean;
@@ -42,6 +42,10 @@ class App extends Component<AppProps, IAppState> {
   render() {
     return (
       <>
+      <Head>
+        <title>Wavect® Token - Pay in Crypto & Save Money</title>
+        <meta property="og:title" content="Wavect® Token - Pay in Crypto & Save Money" key="title" />
+      </Head>
       <div>
         <Navbar account={this.state.account} />
         <div className="container-fluid mt-5">

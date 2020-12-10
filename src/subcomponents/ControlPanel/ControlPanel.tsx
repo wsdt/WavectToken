@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { BlockchainService } from "src/services/Blockchain.service";
 import { NotificationService } from "src/services/Notification.service";
+import { LoadingIndicatorSmall } from "../LoadingIndicator/LoadingIndicatorSmall/LoadingIndicatorSmall";
 import styles from './ControlPanel.module.css';
 import { IControlPanelProps } from "./IControlPanel.props";
 import { IControlPanelState } from "./IControlPanel.state";
@@ -60,7 +61,7 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
         <button className="align-middle mt-4 w-full h-12 px-6 text-blue-100 transition-colors duration-150 bg-blue-700 disabled:opacity-50 rounded-lg focus:shadow-outline enabled:hover:bg-blue-800"
             onClick={async () => await this.submitPayment()} disabled={this.state.isLoading}>
               {this.state.isLoading 
-                ? <div className={`mt-1 ${styles.ldsRipple}`}><div></div><div></div></div>
+                ? <LoadingIndicatorSmall />
                 : "Submit payment"}
               </button>
       </>);

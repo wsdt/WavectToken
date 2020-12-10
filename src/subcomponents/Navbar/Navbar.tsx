@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { AssetService } from 'src/services/Asset.service';
 import { INavbarProps } from './INavbar.props';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
 
 class Navbar extends Component<INavbarProps, any> {
 
@@ -21,7 +23,9 @@ class Navbar extends Component<INavbarProps, any> {
 
         <div className="flex flex-row-reverse mr-8 md:flex z-50">
           <a href="https://wavect.io" target="_blank" title="Back to the main homepage">
-            <div className="text-white text-center bg-black px-4 py-2 m-2">Back to Wavect.io</div>
+            <div className="text-white text-center rounded bg-black px-4 py-2 m-2">
+              <FontAwesomeIcon icon={faHome} />
+            </div>
           </a>
         </div>
     </div>

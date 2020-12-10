@@ -28,7 +28,7 @@ export class Main extends Component<IMainProps, IMainState> {
   }
 
   private loadMaintenanceScreen() {
-    return <h1 className="text-white text-5xl"><strong>WavectToken</strong><br />coming soon..</h1>
+    return <h1 className="text-white text-5xl"><strong>Wavect® Token</strong><br />coming soon..</h1>
   }
 
   render() {
@@ -37,7 +37,7 @@ export class Main extends Component<IMainProps, IMainState> {
       <BgVideo />
       { this.props.isConnectingToBlockchain || this.state.isLoading
           ? <LoadingIndicator />
-          : <div id="content" className="mt-3 absolute inset-0 flex items-center justify-center">
+          : <div id="content" className="mt-3 ml-2 mr-2 absolute inset-0 flex items-center justify-center">
               <div className="bg-black bg-opacity-80 p-6 rounded-md w-max">
                 { this.props.showMaintenanceMode 
                   ? this.loadMaintenanceScreen()
