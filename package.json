@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build -o ../public/token",
+    "build": "next build -o ./dist/build",
     "start": "next start",
-    "export": "mv ../public/token/.git/ ../public/tmp_token/.git/ && next build && next export -o ../public/token && mv ../public/token/404/index.html ../public/token/index.html && mv ../public/tmp_token/.git/ ../public/token/ && echo 0 > ../public/token/.nojekyll",
+    "export": "mv ./dist/.git/ ./tmp_build/.git/ && mv ./dist/CNAME ./tmp_build/CNAME && next build && next export -o ./dist && mv ./dist/404/index.html ./dist/index.html && mv ./tmp_build/.git/ ./dist/ && echo 0 > ./dist/.nojekyll && mv ./tmp_build/CNAME ./dist/CNAME",
     "serve": "serve build",
     "test": "truffle migrate --reset && truffle test"
   },

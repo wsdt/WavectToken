@@ -6,6 +6,7 @@ export class AssetService {
      * @param filePath Path to media
      */
     public static getPath(filePath: string) {
-        return EnvironmentService.isProductionEnv() ? `/token/${filePath}` : `/${filePath}`;
+        return `/${filePath}`;
+        // return EnvironmentService.isProductionEnv() ? `/token/${filePath}` : `/${filePath}`;
     }
 }
