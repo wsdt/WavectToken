@@ -1,5 +1,5 @@
-import 'react-notifications/lib/notifications.css';
-import {NotificationContainer} from 'react-notifications';
+import 'react-notifications-component/dist/theme.css'
+import ReactNotification from 'react-notifications-component'
 import React, { Component } from 'react'
 import Navbar from '../subcomponents/Navbar/Navbar'
 import Main from '../subcomponents/Main/Main'
@@ -47,6 +47,7 @@ class App extends Component<AppProps, IAppState> {
         <meta property="og:title" content="Wavect® Token - Pay in Crypto & Save Money" key="title" />
       </Head>
       <div>
+        <ReactNotification />
         <Navbar account={this.state.account} />
         <div className="container-fluid mt-5">
           <div className="row">
@@ -62,7 +63,6 @@ class App extends Component<AppProps, IAppState> {
             </main>
           </div>
         </div>
-        <NotificationContainer />
       </div>
       </>
     );

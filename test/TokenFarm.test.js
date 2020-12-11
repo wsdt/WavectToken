@@ -55,7 +55,7 @@ contract('TokenFarm', ([owner, investor]) => {
           assert.notEqual(actualBalance, '0', "Investor needs some ETH!");
         })
 
-        it('Stake ETH / Pay', async (done) => {
+        it('Stake ETH / Pay', async () => {
           tokenFarmWACTBalance = await wavectToken.balanceOf(tokenFarm.address);
           ownerBalance = await web3.eth.getBalance(owner);
           investorBalance = await web3.eth.getBalance(investor);
@@ -75,8 +75,7 @@ contract('TokenFarm', ([owner, investor]) => {
             investorBalance = investorBalance - await web3.eth.getBalance(investor);
             // 3000000000000000 average gas paid
             assert.ok((withdrawnTokens+3000000000000000) > investorBalance, 'investor has not paid owner correctly')
-            // assert.equal(investorBalance, withdrawnTokens, 'investor has not paid owner correctly');
-
+            
             ownerBalance = await web3.eth.getBalance(owner) - ownerBalance;
             assert.equal(ownerBalance.toString(), withdrawnTokens, 'owner has not been paid by investor correctly');
 
@@ -92,42 +91,33 @@ contract('TokenFarm', ([owner, investor]) => {
             ownerBalance = await web3.eth.getBalance(owner);
             investorBalance = await web3.eth.getBalance(investor);
         
-            // await wavectToken.approve(investor, withdrawnTokens+1000000);
-            wavectToken.approve(tokenFarm.address, withdrawnTokens);
+            // Needed for transferFrom (from: investor needed as investor needs to grant it)
+            await wavectToken.increaseAllowance(tokenFarm.address, withdrawnTokens, {from: investor}) 
 
-            // need to wait for allowance to be verified by blockchain, otherwise transferFrom throws an exception
-            setTimeout(async () => {
-                // await wavectToken.allowance(owner, investor, )
-                // 2nd invoice
-                await tokenFarm.stakeTokens(withdrawnTokens, {
-                  from: investor,
-                  to: tokenFarm.address,
-                  value: withdrawnTokens,
-                });
+            // 2nd invoice
+            await tokenFarm.stakeTokens(withdrawnTokens, {
+              from: investor,
+              to: tokenFarm.address,
+              value: withdrawnTokens,
+            });
+        
+            investorBalance = investorBalance - await web3.eth.getBalance(investor);
+            // 3000000000000000 average gas paid
+            assert.ok((withdrawnTokens+3000000000000000) > investorBalance, 'investor has not paid owner correctly when using WACT tokens')
             
-                investorBalance = investorBalance - await web3.eth.getBalance(investor);
-                // 3000000000000000 average gas paid
-                assert.ok((withdrawnTokens+3000000000000000) > investorBalance, 'investor has not paid owner correctly when using WACT tokens')
-                
-                ownerBalance = await web3.eth.getBalance(owner) - ownerBalance;
-                assert.equal(ownerBalance.toString(), (withdrawnTokens - (withdrawnTokens/divisor)).toString(), 'owner has not been pay by investor correctly when using WACT tokens');
+            ownerBalance = await web3.eth.getBalance(owner) - ownerBalance;
+            assert.equal(ownerBalance.toString(), (withdrawnTokens - (withdrawnTokens/divisor)).toString(), 'owner has not been paid by investor correctly when using WACT tokens');
 
-                investorStaking = await tokenFarm.stakingBalance(investor);
-                assert.equal(investorStaking.toString(), (withdrawnTokens * 2 - withdrawnTokens/divisor).toString(), 'investor staking balance not correct after staking with WACT tokens')
-            
-                newTokenFarmWACTBalance = await wavectToken.balanceOf(tokenFarm.address);
-                console.log("TFW: ", toETHFromWei(newTokenFarmWACTBalance.toString()))
-                assert.equal(tokenFarmWACTBalance.toString(), newTokenFarmWACTBalance.toString(), 'TokenFarm should have all WACT tokens again.');
+            investorStaking = await tokenFarm.stakingBalance(investor);
+            assert.equal(investorStaking.toString(), (withdrawnTokens * 2 - withdrawnTokens/divisor).toString(), 'investor staking balance not correct after staking with WACT tokens')
+        
+            newTokenFarmWACTBalance = await wavectToken.balanceOf(tokenFarm.address);
+            assert.equal(tokenFarmWACTBalance.toString(), newTokenFarmWACTBalance.toString(), 'TokenFarm should have all WACT tokens again.');
 
-                oldWACTBalance = newInvestorWACTBalance
-                console.log("W: ", toETHFromWei(oldWACTBalance.toString()))
-                newInvestorWACTBalance = await wavectToken.balanceOf(investor);
-                console.log("W2: ", toETHFromWei(newInvestorWACTBalance.toString()))
-                assert.notEqual(oldWACTBalance.toString(), newInvestorWACTBalance.toString(), 'WACT balance did not change!');
-                assert.equal(newInvestorWACTBalance.toString(), (oldWACTBalance-(withdrawnTokens - (withdrawnTokens/divisor))).toString(), 'Investor should have used his WACT tokens!');
-
-                done();
-            }, 1000)
-         })
+            oldWACTBalance = newInvestorWACTBalance
+            newInvestorWACTBalance = await wavectToken.balanceOf(investor);
+            assert.notEqual(oldWACTBalance.toString(), newInvestorWACTBalance.toString(), 'WACT balance did not change!');
+            assert.equal(newInvestorWACTBalance.toString(), (oldWACTBalance-(withdrawnTokens/divisor)).toString(), `Investor should have used his WACT tokens! Left: ${newInvestorWACTBalance.toString()}, Expected: ${(oldWACTBalance-(withdrawnTokens/divisor))}`);
+          })
   });
 });

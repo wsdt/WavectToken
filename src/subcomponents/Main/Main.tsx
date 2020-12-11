@@ -6,7 +6,7 @@ import { ControlPanel } from '../ControlPanel/ControlPanel';
 import { LoadingIndicator } from '../LoadingIndicator/LoadingIndicator';
 import { IMainProps } from './IMain.props';
 import { IMainState } from './IMain.state';
-
+import styles from './Main.module.css';
 
 export class Main extends Component<IMainProps, IMainState> {
 
@@ -19,23 +19,26 @@ export class Main extends Component<IMainProps, IMainState> {
   async componentDidMount() {
     // Load blockchain data once
     Emitter.on(EVENT_BLOCKCHAIN_DATA_CHANGED, async () => {
-      this.setState({
-        wavectTokenBalance: (await BlockchainService.getWavectTokenBalance(true)),
-        stakingBalance: (await BlockchainService.getStakingBalance(true)),
-        isLoading: false,
-      });
+      try {
+        this.setState({
+          wavectTokenBalance: (await BlockchainService.getWavectTokenBalance(true)),
+          stakingBalance: (await BlockchainService.getStakingBalance(true)),
+        });
+      } finally {
+        this.setState({...this.state, isLoading: false })
+      }
     })
   }
 
   private loadMaintenanceScreen() {
-    return <h1 className="text-white text-5xl"><strong>Wavect® Token</strong><br />coming soon..</h1>
+    return <h1 className="text-white" id={styles.maintenanceFont}><strong>Wavect<sup>®</sup> Token</strong><br />coming soon..</h1>
   }
 
   render() {
     return (
       <>
       <BgVideo />
-      { this.props.isConnectingToBlockchain || this.state.isLoading
+      { (this.props.isConnectingToBlockchain || this.state.isLoading) && !this.props.showMaintenanceMode
           ? <LoadingIndicator />
           : <div id="content" className="mt-3 ml-2 mr-2 absolute inset-0 flex items-center justify-center">
               <div className="bg-black bg-opacity-80 p-6 rounded-md w-max">

@@ -1,0 +1,10 @@
+@media only screen and (max-width: 900px) {
+    #maintenanceFont {
+        font-size: 7vw
+    }
+}
+@media only screen and (min-width: 901px) {
+    #maintenanceFont {
+        font-size: 4vw
+    }
+}

@@ -21,7 +21,7 @@
     "openzeppelin-solidity": "3.3.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-notifications": "^1.7.2",
+    "react-notifications-component": "^3.0.3",
     "react-player": "^2.7.0",
     "tailwindcss": "^2.0.1",
     "truffle": "^5.1.56",

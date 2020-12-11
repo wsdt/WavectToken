@@ -27,19 +27,11 @@ contract TokenFarm {
         // 1 WACT = 1 ETH
         uint wactBalance = wavectToken.balanceOf(msg.sender);
         if (wactBalance > _amount) {
-            // wavectToken.transfer(address(this), _amount);
-            // wavectToken.approve(msg.sender, _amount);
-            // wavectToken.approve(address(this), _amount);
             wavectToken.transferFrom(msg.sender, address(this), _amount); // transfer wact tokens back to owner
-            // stakingBalance[msg.sender] -= _amount; // reduce staking balance (to reduce amount of WACT tokens issued)
             _amount = 0; // nothing more to pay
         } else {
             if (wactBalance > 0) {
-                // wavectToken.transfer(address(this), wactBalance);
-                // wavectToken.approve(msg.sender, wactBalance);
-                //wavectToken.approve(address(this), wactBalance);
                 wavectToken.transferFrom(msg.sender, address(this), wactBalance); // use all available WACT tokens
-                // stakingBalance[msg.sender] = 0; // no wact tokens left
                 _amount -= wactBalance; // reduce ETH invoice
             }
 

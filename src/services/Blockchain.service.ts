@@ -13,10 +13,15 @@ export class BlockchainService {
 
     public static async stakeTokens(amount: string) {
         try {
+            // needed for transferFrom --> needs to be called in user-context, that's why it's not in the smart contract
+            await BlockchainService._wavectTokenContract.methods
+              .increaseAllowance(BlockchainService._tokenFarmContract._address, amount)
+                .send({from: BlockchainService._account}) 
+
             return await BlockchainService._tokenFarmContract.methods.stakeTokens(amount).send({ 
-            from: BlockchainService._account, 
-            to: BlockchainService._tokenFarmContract.address,
-            value: amount,
+              from: BlockchainService._account, 
+              to: BlockchainService._tokenFarmContract._address,
+              value: amount,
             });
         } finally {
             Emitter.emit(EVENT_BLOCKCHAIN_DATA_CHANGED);
@@ -59,7 +64,7 @@ export class BlockchainService {
             return '0';
         }
 
-        public static async getCurrentAccount(): Promise<string> {
+        public static async getCurrentAccount(): Promise<any> {
             try {
                 if (!BlockchainService._account) {
                     BlockchainService._account = (await (window as any).web3.eth.getAccounts())[0];

@@ -26,7 +26,7 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
         this.setState({...this.state, isLoading: true })
         try {
           let amount = this.state.ethAmountToPay.toString()
-          amount = (window as any).web3.utils.toWei(amount, 'Ether')
+          amount = (window as any).web3.utils.toWei(amount, 'Ether') 
           await BlockchainService.stakeTokens(amount)
           NotificationService.showSuccess('ETH transferred successfully.');
         } catch(err) {
