@@ -17,16 +17,22 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
     private submitPayment = async () => {
       // also working for undefined out-of-the-box due to javaScript nature
       if (this.state.ethAmountToPay > 0 && this.state.invoiceReference) {
-        this.setState({...this.state, isLoading: true })
-        try {
-          let amount = this.state.ethAmountToPay.toString()
-          amount = (window as any).web3.utils.toWei(amount, 'Ether') 
-          await BlockchainService.stakeTokens(amount, this.state.invoiceReference)
-          NotificationService.showSuccess('ETH transferred successfully.');
-        } catch(err) {
-          NotificationService.showError('Could not transfer ETH to Wavect.', err);
-        } finally {
-          this.setState({...this.state, isLoading: false })
+        // length of 32 needed as smart contract uses byte32 instead of string to save gas
+        if (this.state.invoiceReference.length >= 32) {
+          NotificationService.showWarning('InvoiceReference must not be longer than 32 chars.');
+        } else {
+          this.setState({...this.state, isLoading: true })
+          try {
+            let amount = this.state.ethAmountToPay.toString()
+            amount = (window as any).web3.utils.toWei(amount, 'Ether') 
+            await BlockchainService.stakeTokens(amount, 
+              BlockchainService.convertStringToByte32(this.state.invoiceReference))
+            NotificationService.showSuccess('ETH transferred successfully.');
+          } catch(err) {
+            NotificationService.showError('Could not transfer ETH to Wavect.', err);
+          } finally {
+            this.setState({...this.state, isLoading: false })
+          }
         }
       } else {
         if (!this.state.invoiceReference) {

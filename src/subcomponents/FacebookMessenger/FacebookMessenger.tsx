@@ -4,9 +4,10 @@ import FacebookMessengerCustomerChat from 'react-messenger-customer-chat';
 export const FacebookMessenger = (props:any) => {
     return <FacebookMessengerCustomerChat
                 pageId="243867366515546"
-                appId="<APP_ID>"
+                appId="3121144401446010"
                 minimized={true}
                 themeColor="#76b9c3"
-                htmlRef="<REF_STRING>"
+                loggedInGreeting="Having troubles with Metamask, transferring cryptos or general questions?"
+                loggedOutGreeting="Having troubles with Metamask, transferring cryptos or general questions?"
             />
 }

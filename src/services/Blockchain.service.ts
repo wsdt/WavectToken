@@ -13,7 +13,11 @@ export class BlockchainService {
 
     public static convertWeiToETH = (wei: string) => {
       return (window as any).web3.utils.fromWei(wei, 'Ether');
-  }
+    }
+
+    public static convertStringToByte32 = (stringToEncode: string) => {
+      return (window as any).web3.utils.fromAscii(stringToEncode);
+    }
 
     public static async stakeTokens(amount: string, invoiceReference: string) {
         try {

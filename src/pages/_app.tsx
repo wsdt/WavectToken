@@ -11,6 +11,7 @@ import '../styles/index.css';
 import Head from 'next/head'
 import { BgParticles } from 'src/subcomponents/BgParticles/BgParticles'
 import { AssetService } from 'src/services/Asset.service'
+import { FacebookMessenger } from 'src/subcomponents/FacebookMessenger/FacebookMessenger'
 
 interface IAppState {
   isConnectingToBlockchain: boolean;
@@ -45,8 +46,7 @@ class App extends Component<AppProps, IAppState> {
     return (
       <>
       <Head>
-        <title>Wavect® Token - Pay in Crypto & Save Money</title> 
-        <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' /> 
+        <title>Wavect® Token - Pay in Crypto & Save Money</title>  
         <meta name="description" 
             content="Wavect® Token - Pay in Crypto & Save Money"/>
         <meta name="keywords" content="wavect,token,crypto,hightech,innovation,blockchain,artificial intelligence,ai,iot,internet-of-things,partner,freelancer,software,prototyping"/>
@@ -68,10 +68,10 @@ class App extends Component<AppProps, IAppState> {
 
         <script src="https://cdn.rawgit.com/progers/pathseg/master/pathseg.js"></script>
       </Head>
-
       <div>
         <ReactNotification />
         <BgParticles />
+        <FacebookMessenger />
         <Navbar account={this.state.account} />
         <div className="container-fluid mt-5">
           <div className="row">

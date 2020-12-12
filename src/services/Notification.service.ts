@@ -9,7 +9,7 @@ export class NotificationService {
         pauseOnHover: true,
       },
       insert: 'top',
-      container: 'bottom-right',
+      container: 'top-right',
       animationIn: ["animate__animated", "animate__fadeIn"],
       animationOut: ["animate__animated", "animate__fadeOut"],
     }

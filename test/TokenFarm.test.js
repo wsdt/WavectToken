@@ -67,14 +67,15 @@ contract('TokenFarm', ([owner, investor]) => {
           assert.equal(investorWACTBalance.toString(), '0', 'Investor should not have any WACT tokens yet.');
 
           const invoice1 = 'invoice_1'
-          await tokenFarm.stakeTokens(withdrawnTokens, invoice1, {
+          await tokenFarm.stakeTokens(withdrawnTokens, web3.utils.fromAscii(invoice1), {
               from: investor,
               to: tokenFarm.address,
               value: withdrawnTokens,
             });
 
-            invoiceReference = await tokenFarm.invoiceReferences(investor.toString(), 0);
-            assert.equal(invoiceReference, invoice1, 'Invoice Reference stored faulty: '+invoiceReference)
+            invoiceReference = web3.utils.toAscii(await tokenFarm.invoiceReferences(investor.toString(), 0));
+            // substring necessary as we save string as byte32 which gives back a string of 32 chars (a lot of spaces as postfix)
+            assert.equal(invoiceReference.substring(0, invoice1.length), invoice1, 'Invoice Reference stored faulty: '+invoiceReference)
 
             investorBalance = investorBalance - await web3.eth.getBalance(investor);
             // 3000000000000000 average gas paid
@@ -100,14 +101,15 @@ contract('TokenFarm', ([owner, investor]) => {
 
             // 2nd invoice
             const invoice2 = 'invoice_2'
-            await tokenFarm.stakeTokens(withdrawnTokens, invoice2, {
+            await tokenFarm.stakeTokens(withdrawnTokens, web3.utils.fromAscii(invoice2), {
               from: investor,
               to: tokenFarm.address,
               value: withdrawnTokens,
             });
 
-            invoiceReference = await tokenFarm.invoiceReferences(investor.toString(), 1);
-            assert.equal(invoiceReference, invoice2, '2nd Invoice Reference stored faulty: '+invoiceReference)
+            invoiceReference = web3.utils.toAscii(await tokenFarm.invoiceReferences(investor.toString(), 1));
+            // substring necessary as we save string as byte32 which gives back a string of 32 chars (a lot of spaces as postfix)
+            assert.equal(invoiceReference.substring(0, invoice2.length), invoice2, '2nd Invoice Reference stored faulty: '+invoiceReference)
         
             investorBalance = investorBalance - await web3.eth.getBalance(investor);
             // 3000000000000000 average gas paid
