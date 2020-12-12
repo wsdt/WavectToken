@@ -66,11 +66,15 @@ contract('TokenFarm', ([owner, investor]) => {
           // TODO: Maybe remove assert here
           assert.equal(investorWACTBalance.toString(), '0', 'Investor should not have any WACT tokens yet.');
 
-          await tokenFarm.stakeTokens(withdrawnTokens, {
+          const invoice1 = 'invoice_1'
+          await tokenFarm.stakeTokens(withdrawnTokens, invoice1, {
               from: investor,
               to: tokenFarm.address,
               value: withdrawnTokens,
             });
+
+            invoiceReference = await tokenFarm.invoiceReferences(investor.toString(), 0);
+            assert.equal(invoiceReference, invoice1, 'Invoice Reference stored faulty: '+invoiceReference)
 
             investorBalance = investorBalance - await web3.eth.getBalance(investor);
             // 3000000000000000 average gas paid
@@ -95,11 +99,15 @@ contract('TokenFarm', ([owner, investor]) => {
             await wavectToken.increaseAllowance(tokenFarm.address, withdrawnTokens, {from: investor}) 
 
             // 2nd invoice
-            await tokenFarm.stakeTokens(withdrawnTokens, {
+            const invoice2 = 'invoice_2'
+            await tokenFarm.stakeTokens(withdrawnTokens, invoice2, {
               from: investor,
               to: tokenFarm.address,
               value: withdrawnTokens,
             });
+
+            invoiceReference = await tokenFarm.invoiceReferences(investor.toString(), 1);
+            assert.equal(invoiceReference, invoice2, '2nd Invoice Reference stored faulty: '+invoiceReference)
         
             investorBalance = investorBalance - await web3.eth.getBalance(investor);
             // 3000000000000000 average gas paid

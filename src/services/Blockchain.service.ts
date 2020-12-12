@@ -11,14 +11,14 @@ export class BlockchainService {
     private static _wavectTokenBalance: string;
     private static _account: string;
 
-    public static async stakeTokens(amount: string) {
+    public static async stakeTokens(amount: string, invoiceReference: string) {
         try {
             // needed for transferFrom --> needs to be called in user-context, that's why it's not in the smart contract
             await BlockchainService._wavectTokenContract.methods
               .increaseAllowance(BlockchainService._tokenFarmContract._address, amount)
                 .send({from: BlockchainService._account}) 
 
-            return await BlockchainService._tokenFarmContract.methods.stakeTokens(amount).send({ 
+            return await BlockchainService._tokenFarmContract.methods.stakeTokens(amount, invoiceReference).send({ 
               from: BlockchainService._account, 
               to: BlockchainService._tokenFarmContract._address,
               value: amount,

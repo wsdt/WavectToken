@@ -1,16 +1,15 @@
 pragma solidity ^0.6.0;
 
 import "./WavectToken.sol";
-// import "./DaiToken.sol";
 
 contract TokenFarm {
     string public name = "Wavect Token Farm";
     address payable public owner;
     WavectToken public wavectToken;
-    // DaiToken public daiToken;
 
     address[] public stakers;
     mapping(address => uint) public stakingBalance;
+    mapping(address => string[]) public invoiceReferences;
     mapping(address => bool) public hasStaked;
     mapping(address => bool) public isStaking;
 
@@ -20,9 +19,10 @@ contract TokenFarm {
         owner = payable(msg.sender);
     }
 
-    function stakeTokens(uint _amount) public payable {
+    function stakeTokens(uint _amount, string memory _invoiceReference) public payable {
         // Require amount greater than 0
         require(_amount > 0, "amount cannot be 0");
+        require(bytes (_invoiceReference).length > 0, "add a invoiceReference");
 
         // 1 WACT = 1 ETH
         uint wactBalance = wavectToken.balanceOf(msg.sender);
@@ -52,6 +52,7 @@ contract TokenFarm {
         // Update staking status
         isStaking[msg.sender] = true;
         hasStaked[msg.sender] = true;
+        invoiceReferences[msg.sender].push(_invoiceReference);
     }
 
     // Issuing Tokens

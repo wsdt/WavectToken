@@ -19,7 +19,7 @@ export class NotificationService {
           ...NotificationService.defaultConfig,
           title: 'Error',
           message,
-          type: 'error',
+          type: 'danger',
         });  
         console.error(message, err);
     }
@@ -32,5 +32,35 @@ export class NotificationService {
           type: 'success',
         });  
         console.info(message);
+    }
+
+    public static showInfo(message: string) {
+      store.addNotification({
+        ...NotificationService.defaultConfig,
+        title: 'Info',
+        message,
+        type: 'info',
+      });  
+      console.info(message);
+    }
+
+    public static showWarning(message: string) {
+      store.addNotification({
+        ...NotificationService.defaultConfig,
+        title: 'Warning',
+        message,
+        type: 'warning',
+      });  
+      console.warn(message);
+    }
+
+    public static showDefaultNotification(title: string, message: string) {
+      store.addNotification({
+        ...NotificationService.defaultConfig,
+        title,
+        message,
+        type: 'default',
+      });  
+      console.warn(message);
     }
 }

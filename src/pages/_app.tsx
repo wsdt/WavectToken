@@ -9,6 +9,7 @@ import Emitter, { EVENT_BLOCKCHAIN_DATA_CHANGED } from 'src/services/Event.servi
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import '../styles/index.css';
 import Head from 'next/head'
+import { BgParticles } from 'src/subcomponents/BgParticles/BgParticles'
 
 interface IAppState {
   isConnectingToBlockchain: boolean;
@@ -45,13 +46,15 @@ class App extends Component<AppProps, IAppState> {
       <Head>
         <title>Wavect® Token - Pay in Crypto & Save Money</title>
         <meta property="og:title" content="Wavect® Token - Pay in Crypto & Save Money" key="title" />
+        <script src="https://cdn.rawgit.com/progers/pathseg/master/pathseg.js"></script>
       </Head>
       <div>
         <ReactNotification />
+        <BgParticles />
         <Navbar account={this.state.account} />
         <div className="container-fluid mt-5">
           <div className="row">
-            <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '85%' }}>
+            <main role="main" className="col-lg-12 ml-auto mr-auto">
               <div className="content mr-auto ml-auto">
 
               <Main
