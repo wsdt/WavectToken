@@ -47,7 +47,7 @@ export const StepByStepGuide = (props: any) => {
         faEthereum)}
       {renderStepArrow()}
       {renderStepNode('Redeem WACT',
-        <>& save money. Once you have received WACT-Tokens, the Smart-Contract will automatically use them up before transferring your ETH.</>,
+        <>& save money. The Smart-Contract will automatically use your WACT-Tokens up before transferring your ETH.</>,
         faPercent)}
     </div>
     </>
