@@ -5,3 +5,12 @@
 
 @import 'tailwindcss/utilities';
 
+
+a:link, a:visited {
+    color: rgba(30, 64, 175);
+    font-weight: bold;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}

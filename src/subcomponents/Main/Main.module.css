@@ -10,8 +10,8 @@
 }
 
 .contentContainer {
-         /* Center */
-         display: flex;
-         align-items: center;
-         justify-content: center;
+    /* Center */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

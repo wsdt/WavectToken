@@ -44,14 +44,14 @@ export class NotificationService {
       console.info(message);
     }
 
-    public static showWarning(message: string) {
+    public static showWarning(message: string, err?: Error) {
       store.addNotification({
         ...NotificationService.defaultConfig,
         title: 'Warning',
         message,
         type: 'warning',
       });  
-      console.warn(message);
+      console.warn(message, err);
     }
 
     public static showDefaultNotification(title: string, message: string) {

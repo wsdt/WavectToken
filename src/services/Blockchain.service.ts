@@ -11,6 +11,10 @@ export class BlockchainService {
     private static _wavectTokenBalance: string;
     private static _account: string;
 
+    public static convertWeiToETH = (wei: string) => {
+      return (window as any).web3.utils.fromWei(wei, 'Ether');
+  }
+
     public static async stakeTokens(amount: string, invoiceReference: string) {
         try {
             // needed for transferFrom --> needs to be called in user-context, that's why it's not in the smart contract

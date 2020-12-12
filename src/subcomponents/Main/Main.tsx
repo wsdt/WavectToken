@@ -5,6 +5,7 @@ import { BgParticles } from '../BgParticles/BgParticles';
 import { BgVideo } from '../BgVideo/BgVideo';
 import { ControlPanel } from '../ControlPanel/ControlPanel';
 import { LoadingIndicator } from '../LoadingIndicator/LoadingIndicator';
+import { StepByStepGuide } from '../StepByStepGuide/StepByStepGuide';
 import { IMainProps } from './IMain.props';
 import { IMainState } from './IMain.state';
 import styles from './Main.module.css';
@@ -40,14 +41,18 @@ export class Main extends Component<IMainProps, IMainState> {
       <>
       { (this.props.isConnectingToBlockchain || this.state.isLoading) && !this.props.showMaintenanceMode
           ? <LoadingIndicator />
-          : <div id="content" className={`mt-3 ml-2 mr-2 flex inset-0 items-center justify-center ${styles.contentContainer}`}>
-              <div className="bg-black bg-opacity-80 p-6 rounded-md w-max">
+          : <><div id="content" className={`mt-8 ml-2 mr-2 flex inset-0 items-center justify-center ${styles.contentContainer}`}>
+              <div className="bg-black bg-opacity-80 p-6 rounded-md w-max row-span-3">
                 { this.props.showMaintenanceMode 
                   ? this.loadMaintenanceScreen()
                   : <ControlPanel wavectTokenBalance={this.state.wavectTokenBalance} 
                       stakingBalance={this.state.stakingBalance} /> }
               </div>
             </div> 
+            <div className={`mt-10 ml-40 mr-40`}>
+              <StepByStepGuide />
+            </div>
+            </>
         }
       </>
     );

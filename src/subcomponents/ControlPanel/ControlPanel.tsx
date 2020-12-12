@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { BlockchainService } from "src/services/Blockchain.service";
 import { NotificationService } from "src/services/Notification.service";
+import { ControlPanelHeader } from "../ControlPanelHeader/ControlPanelHeader";
 import { LoadingIndicatorSmall } from "../LoadingIndicator/LoadingIndicatorSmall/LoadingIndicatorSmall";
 import styles from './ControlPanel.module.css';
 import { IControlPanelProps } from "./IControlPanel.props";
@@ -11,14 +12,6 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
         ethAmountToPay: 1,
         invoiceReference: '',
         isLoading: false,
-    }
-
-    private getRewardBalance = () => {
-        return (window as any).web3.utils.fromWei(this.props.wavectTokenBalance, 'Ether');
-    }
-
-    private getStakedCrypto = () => {
-        return (window as any).web3.utils.fromWei(this.props.stakingBalance, 'Ether');
     }
 
     private submitPayment = async () => {
@@ -88,17 +81,13 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
 
     render() {
         return <div id={styles.controlPanelContainer}>
-                <span className="tracking-wider text-white bg-blue-800 px-4 py-1 text-sm rounded leading-loose mx-2 font-semibold" title="">
-                   <i className="fas fa-award" aria-hidden="true"></i> {this.getStakedCrypto()} ETH paid
-                </span>
+                <ControlPanelHeader stakingBalance={this.props.stakingBalance} 
+                  wavectTokenBalance={this.props.wavectTokenBalance} />
 
-                <span className="tracking-wider text-white bg-blue-400 px-4 py-1 text-sm rounded leading-loose mx-2 font-semibold" title="">
-                   <i className="fas fa-award" aria-hidden="true"></i> {this.getRewardBalance()} WACT earned
-                </span>
                 <h1 className={`mt-5 ${styles.header}`}>Wavect<sup>®</sup> Token</h1>
-                <p className={styles.p}>We at Wavect not only accept certain cryptos such as ETH, BTC or XMR, but even want to encourage our customers to do so.</p>
-                <p className={styles.p}>Therefore, each payment settled in cryptos will be rewarded with so-called Wavect-Tokens which can be redeemed in future projects.</p>
-                <p className={styles.p}>Basically, it's just a futuristic and secure voucher :-). At the moment this app only supports Ethereum directly.</p>
+                <p className={styles.p}>We at Wavect not only accept payments in cryptos, but even want to encourage our customers to do so.</p>
+                <p className={styles.p}>Therefore, each payment settled with cryptocurrencies will increase the amount of so-called Wavect-Tokens you earn, which can then be redeemed in future projects.</p>
+                <p className={styles.p}>Basically, it's just a futuristic and secure voucher :-).</p>
 
                 { this.loadPaymentInput() }
         </div>

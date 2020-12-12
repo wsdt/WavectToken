@@ -21,6 +21,7 @@
     "openzeppelin-solidity": "3.3.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-messenger-customer-chat": "^0.8.0",
     "react-notifications-component": "^3.0.3",
     "react-particles-js": "^3.4.1",
     "react-player": "^2.7.0",
