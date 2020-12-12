@@ -93,7 +93,7 @@ export class ControlPanel extends Component<IControlPanelProps, IControlPanelSta
                 <h1 className={`mt-5 ${styles.header}`}>Wavect<sup>®</sup> Token</h1>
                 <p className={styles.p}>We at Wavect not only accept payments in cryptos, but even want to encourage our customers to do so.</p>
                 <p className={styles.p}>Therefore, each payment settled with cryptocurrencies will increase the amount of so-called Wavect-Tokens you earn, which can then be redeemed in future projects.</p>
-                <p className={styles.p}>Basically, it's just a futuristic and secure voucher :-).</p>
+                <p className={styles.p}>Basically, it's just a futuristic and secure voucher :-). Still some questions? Hit us a message via the Facebook-Messenger below.</p>
 
                 { this.loadPaymentInput() }
         </div>

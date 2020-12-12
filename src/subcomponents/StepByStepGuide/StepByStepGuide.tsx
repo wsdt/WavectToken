@@ -1,5 +1,5 @@
 import { faEthereum } from "@fortawesome/free-brands-svg-icons"
-import { faArrowDown, faArrowRight, faDownload, faFileInvoiceDollar, IconDefinition } from "@fortawesome/free-solid-svg-icons"
+import { faArrowDown, faArrowRight, faDownload, faFileInvoiceDollar, faPercent, IconDefinition } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const renderStepArrow = () => {
@@ -45,6 +45,10 @@ export const StepByStepGuide = (props: any) => {
       {renderStepNode('Pay in Crypto',
         <>& wait for vouchers issued as WACT tokens. Then watch your WACT tokens grow in value (1 ETH = 1 WACT).</>,
         faEthereum)}
+      {renderStepArrow()}
+      {renderStepNode('Redeem WACT',
+        <>& save money. Once you have received WACT-Tokens, the Smart-Contract will automatically use them up before transferring your ETH.</>,
+        faPercent)}
     </div>
     </>
 }
