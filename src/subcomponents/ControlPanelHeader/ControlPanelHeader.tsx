@@ -66,7 +66,7 @@ export class ControlPanelHeader extends Component<IControlPanelHeaderProps, ICon
                     <p className={`flex justify-center text-xl font-semibold text-center text-${color}-200`}>
                         {this.state.currentETHPriceInEUR}
                     </p>
-                    <p className={`text-md text-center text-${color}-300`}>equal 1 ETH</p>
+                    <p className={`text-md text-center text-${color}-300`}>equal 1 ETH / WACT</p>
                 </div>
             </div>       
     </div>

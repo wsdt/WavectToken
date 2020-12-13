@@ -4,6 +4,7 @@ import Emitter, { EVENT_BLOCKCHAIN_DATA_CHANGED } from 'src/services/Event.servi
 import { BgParticles } from '../BgParticles/BgParticles';
 import { BgVideo } from '../BgVideo/BgVideo';
 import { ControlPanel } from '../ControlPanel/ControlPanel';
+import { FAQs } from '../FAQs/FAQs';
 import { LoadingIndicator } from '../LoadingIndicator/LoadingIndicator';
 import { StepByStepGuide } from '../StepByStepGuide/StepByStepGuide';
 import { IMainProps } from './IMain.props';
@@ -51,6 +52,8 @@ export class Main extends Component<IMainProps, IMainState> {
             </div> 
             <div className={`mt-12 mb-10 ml-10 mr-10 sm:ml-10 sm:mr-10 xl:ml-40 xl:mr-40`}>
               <StepByStepGuide />
+
+              <FAQs />
             </div>
             </>
         }
