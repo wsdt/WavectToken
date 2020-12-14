@@ -1,30 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Wavect® Token  [![HitCount](http://hits.dwyl.com/wsdt/WavectToken.svg)](http://hits.dwyl.com/wsdt/WavectToken) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://bitbucket.org/lbesson/ansi-colors) [![Generic badge](https://img.shields.io/badge/Made%20with-NextJS-9cf)](https://nextjs.org/) [![Generic badge](https://img.shields.io/badge/Made%20with-TailwindCSS-pink.svg)](https://tailwindcss.com/) [![Donate](https://img.shields.io/badge/Donate-Pay%20me%20a%20coffee-3cf)](https://github.com/wsdt/Global/wiki/Donation) [![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/kevin.riedl.privat%40gmail.com)
 
-## Getting Started
+## The decentralized web, also called Web 3.0 is here!
+We at Wavect.io® have released today our new Blockchain-based voucher system.
 
-First, run the development server:
+* Take a look here: https://token.wavect.io
+* More Details also on our main website: https://wavect.io
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## But what is this about?
+Settle invoices in a cryptocurrency & earn so-called Wavect-Tokens. These tokens can then be redeemed in future projects. Basically it's just a futuristic & decentralized voucher :-).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Behind the scences
+The above web-application relies on so-called smart-contracts (= intelligent & decentralized contracts executed on the Blockchain).
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+There are still a lot of opportunities in the Blockchain world, don't wait too long and contact us today to discuss interesting use-cases for your organization.
+office@wavect.io
+<hr />
 
-## Learn More
+## Contribution [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-To learn more about Next.js, take a look at the following resources:
+This project is licensed under GNU V3, so contributions/pull-requests are welcome. All contributors get listed here. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Contributors**
+- Kevin Riedl ([WSDT](https://github.com/wsdt))
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
