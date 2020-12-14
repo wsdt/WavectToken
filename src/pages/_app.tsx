@@ -12,6 +12,7 @@ import Head from 'next/head'
 import { BgParticles } from 'src/subcomponents/BgParticles/BgParticles'
 import { AssetService } from 'src/services/Asset.service'
 import { FacebookMessenger } from 'src/subcomponents/FacebookMessenger/FacebookMessenger'
+import ReactGA from 'react-ga';
 
 interface IAppState {
   isConnectingToBlockchain: boolean;
@@ -31,6 +32,10 @@ class App extends Component<AppProps, IAppState> {
     Emitter.on(EVENT_BLOCKCHAIN_DATA_CHANGED, async () => {
       this.setState({...this.state, account: await BlockchainService.getCurrentAccount() });
     });
+
+    // Init Google Analytics
+    ReactGA.initialize('G-Y4F4C2RDRT');
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
   constructor(props) {
