@@ -22,12 +22,8 @@ interface IAppState {
 class App extends Component<AppProps, IAppState> {
 
   async componentDidMount() {
-    try {
-      await BlockchainService.connectToBlockchain();
-    } finally {
-      // also stop loading in case blockchain network is down (e.g. local ganache)
-      this.setState({...this.state, isConnectingToBlockchain: false});
-    }
+    const loadingDoneCb = () => this.setState({...this.state, isConnectingToBlockchain: false});
+    await BlockchainService.connectToBlockchain(loadingDoneCb);
 
     Emitter.on(EVENT_BLOCKCHAIN_DATA_CHANGED, async () => {
       this.setState({...this.state, account: await BlockchainService.getCurrentAccount() });

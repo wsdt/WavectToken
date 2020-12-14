@@ -41,13 +41,14 @@ export class BlockchainService {
        }
       }
 
-      public static async connectToBlockchain() {
+      public static async connectToBlockchain(loadingDoneCb: () => void) {
         try {
             await BlockchainService.loadBlockchainData(
-              await BlockchainService.loadWeb3()
+              await BlockchainService.loadWeb3(loadingDoneCb)
             )
           } catch(err) {
             NotificationService.showError('You need to allow your browser to connect to our Web3 service.', err)
+            loadingDoneCb();
           }
       }
 
@@ -127,7 +128,7 @@ export class BlockchainService {
         }
       }
     
-      private static async loadWeb3() {
+      private static async loadWeb3(loadingDoneCb: () => void) {
           if ((window as any).ethereum) {
     
             (window as any).web3 = new Web3((window as any).ethereum)
@@ -138,6 +139,7 @@ export class BlockchainService {
           }
           else {
             NotificationService.showError('Non-Ethereum browser detected. You should consider trying MetaMask!')
+            loadingDoneCb();
           }
           return (window as any).web3;
       }
