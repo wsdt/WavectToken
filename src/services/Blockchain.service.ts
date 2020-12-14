@@ -11,12 +11,12 @@ export class BlockchainService {
     private static _wavectTokenBalance: string;
     private static _account: string;
 
-    public static convertWeiToETH = (wei: string) => {
-      return (window as any).web3.utils.fromWei(wei, 'Ether');
+    public static convertWeiToETH = (wei: string): string => {
+      return (window as any).web3?.utils?.fromWei(wei, 'Ether') ?? 0;
     }
 
-    public static convertStringToByte32 = (stringToEncode: string) => {
-      return (window as any).web3.utils.fromAscii(stringToEncode);
+    public static convertStringToByte32 = (stringToEncode: string): string => {
+      return (window as any).web3?.utils?.fromAscii(stringToEncode) ?? 0;
     }
 
     public static async stakeTokens(amount: string, invoiceReference: string) {
@@ -41,14 +41,13 @@ export class BlockchainService {
        }
       }
 
-      public static async connectToBlockchain(loadingDoneCb: () => void) {
+      public static async connectToBlockchain() {
         try {
             await BlockchainService.loadBlockchainData(
-              await BlockchainService.loadWeb3(loadingDoneCb)
+              await BlockchainService.loadWeb3()
             )
           } catch(err) {
             NotificationService.showError('You need to allow your browser to connect to our Web3 service.', err)
-            loadingDoneCb();
           }
       }
 
@@ -128,7 +127,7 @@ export class BlockchainService {
         }
       }
     
-      private static async loadWeb3(loadingDoneCb: () => void) {
+      private static async loadWeb3() {
           if ((window as any).ethereum) {
     
             (window as any).web3 = new Web3((window as any).ethereum)
@@ -139,7 +138,6 @@ export class BlockchainService {
           }
           else {
             NotificationService.showError('Non-Ethereum browser detected. You should consider trying MetaMask!')
-            loadingDoneCb();
           }
           return (window as any).web3;
       }

@@ -16,12 +16,13 @@ export class Main extends Component<IMainProps, IMainState> {
   state: IMainState = {
     wavectTokenBalance: '0',
     stakingBalance: '0',
-    isLoading: true,
+    isLoading: false,
   };
 
   async componentDidMount() {
     // Load blockchain data once
     Emitter.on(EVENT_BLOCKCHAIN_DATA_CHANGED, async () => {
+      this.setState({...this.state, isLoading: true})
       try {
         this.setState({
           wavectTokenBalance: (await BlockchainService.getWavectTokenBalance(true)),
