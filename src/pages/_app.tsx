@@ -79,7 +79,7 @@ class App extends Component<AppProps, IAppState> {
               <div className="content mr-auto ml-auto">
 
               <Main
-                showMaintenanceMode={EnvironmentService.isProductionEnv()}
+                showMaintenanceMode={false} // EnvironmentService.isProductionEnv()
                 isConnectingToBlockchain={this.state.isConnectingToBlockchain}
               />
 

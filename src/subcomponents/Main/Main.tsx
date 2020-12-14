@@ -50,9 +50,8 @@ export class Main extends Component<IMainProps, IMainState> {
                       stakingBalance={this.state.stakingBalance} /> }
               </div>
             </div> 
-            <div className={`mt-12 mb-10 ml-10 mr-10 sm:ml-10 sm:mr-10 xl:ml-40 xl:mr-40`}>
+            <div className={`mt-12 mb-10 ml-8 mr-8 sm:ml-10 sm:mr-10 xl:ml-40 xl:mr-40`}>
               <StepByStepGuide />
-
               <FAQs />
             </div>
             </>

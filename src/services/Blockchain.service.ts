@@ -54,7 +54,8 @@ export class BlockchainService {
             }
             return BlockchainService._wavectTokenBalance;
           } catch(err) {
-              NotificationService.showError('Could not fetch Wavect Token balance.', err);
+              // NotificationService.showError('Could not fetch Wavect Token balance.', err);
+              console.warn('Smart-Contracts not deployed yet (deployed on demand): Could not fetch WACT Token balance', err);
           } 
           return '0';
       }
@@ -67,7 +68,8 @@ export class BlockchainService {
                     }
                     return BlockchainService._stakingBalance 
             } catch(err) {
-                NotificationService.showError('Could not fetch staking balance.', err);
+                // NotificationService.showError('Could not fetch staking balance.', err);
+                console.warn('Smart-Contracts not deployed yet (deployed on demand): Could not fetch staking balance.', err);
             } 
             return '0';
         }
@@ -90,7 +92,8 @@ export class BlockchainService {
           if(wavectTokenData) {
             BlockchainService._wavectTokenContract = new (window as any).web3.eth.Contract(WavectToken.abi, wavectTokenData.address);
           } else {
-            NotificationService.showError('WavectToken contract not deployed to detected network.')
+            // NotificationService.showError('WavectToken contract not deployed to detected network.')
+            console.warn('Smart-Contracts not deployed yet (deployed on demand): WavectToken contract not deployed to detected network.')
           }
           return BlockchainService._wavectTokenBalance;
         }
@@ -100,7 +103,8 @@ export class BlockchainService {
           if(tokenFarmData) {
             BlockchainService._tokenFarmContract = new (window as any).web3.eth.Contract(TokenFarm.abi, tokenFarmData.address);
           } else {
-            NotificationService.showError('TokenFarm contract not deployed to detected network.')
+            // NotificationService.showError('TokenFarm contract not deployed to detected network.')
+            console.warn('Smart-Contracts not deployed yet (deployed on demand): TokenFarm contract not deployed to detected network.');
           }
         }
 
