@@ -49,6 +49,14 @@ export const FAQs = (props: any) => {
                                 authorizing our smart contract to transfer your WACT tokens back to itself (in case you have received any).
                                 The 2nd transaction is the actual Ethereum transaction.
                             </>} />
+
+                        <FAQ title="Could it happen that the WACT tokens I've received today worth 400 € each could be worth 2000€ in 5 years?"
+                            description={<>
+                                Absolutely, that's one of the benefits using this voucher system. 
+                                When we get paid in ETH we don't plan to convert them into other currencies like USD or EUR, as long as we don't see a greater correction coming in. 
+                                That's one reason, why this isn't an issue on our side (as your payment is more worth too) and it is at the same time a great way for your business
+                                to save a lot of money when using our voucher system.
+                            </>} />
                     </div>
                 </div>
             </div>
