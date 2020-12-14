@@ -38,6 +38,7 @@ export class BlockchainService {
        } else {
          // throw informative error, when contracts are not deployed (as we do this on-demand because of the costs) or when user doesn't has Metamask/ETH Browser
          NotificationService.showError('Your browser does not support Web3, does not have Metamask installed or you did not request an ETH invoice yet.');
+         throw new Error('No Ethereum hook found (Metamask | native ETH browser) or you did not request an ETH invoice yet.')
        }
       }
 
