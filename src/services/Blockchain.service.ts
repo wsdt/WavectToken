@@ -20,20 +20,25 @@ export class BlockchainService {
     }
 
     public static async stakeTokens(amount: string, invoiceReference: string) {
+      if (BlockchainService._wavectTokenContract?.methods && BlockchainService._tokenFarmContract?.methods) {  
         try {
-            // needed for transferFrom --> needs to be called in user-context, that's why it's not in the smart contract
-            await BlockchainService._wavectTokenContract.methods
-              .increaseAllowance(BlockchainService._tokenFarmContract._address, amount)
-                .send({from: BlockchainService._account}) 
+              // needed for transferFrom --> needs to be called in user-context, that's why it's not in the smart contract
+              await BlockchainService._wavectTokenContract.methods
+                .increaseAllowance(BlockchainService._tokenFarmContract._address, amount)
+                  .send({from: BlockchainService._account}) 
 
-            return await BlockchainService._tokenFarmContract.methods.stakeTokens(amount, invoiceReference).send({ 
-              from: BlockchainService._account, 
-              to: BlockchainService._tokenFarmContract._address,
-              value: amount,
-            });
-        } finally {
-            Emitter.emit(EVENT_BLOCKCHAIN_DATA_CHANGED);
-        }
+              return await BlockchainService._tokenFarmContract.methods.stakeTokens(amount, invoiceReference).send({ 
+                from: BlockchainService._account, 
+                to: BlockchainService._tokenFarmContract._address,
+                value: amount,
+              });
+          } finally {
+              Emitter.emit(EVENT_BLOCKCHAIN_DATA_CHANGED);
+          }
+       } else {
+         // throw informative error, when contracts are not deployed (as we do this on-demand because of the costs) or when user doesn't has Metamask/ETH Browser
+         NotificationService.showError('Your browser does not support Web3, does not have Metamask installed or you did not request an ETH invoice yet.');
+       }
       }
 
       public static async connectToBlockchain() {

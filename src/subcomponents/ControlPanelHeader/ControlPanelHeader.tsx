@@ -68,7 +68,9 @@ export class ControlPanelHeader extends Component<IControlPanelHeaderProps, ICon
                     </p>
                     <p className={`text-md text-center text-${color}-300`}>equal 1 ETH / WACT</p>
                 </div>
-            </div>       
+            </div>
+            <span className="hidden bg-red-700 border-red-500 text-red-200 text-red-300
+                bg-green-700 border-green-500 text-green-200 text-green-300" />{/* To avoid that these classes get purged away as they are dynamically assigned (didn't add them to the tailwind.config as I want to still purge as much as possible) */}
     </div>
     }
 }
