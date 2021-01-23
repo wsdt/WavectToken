@@ -51,9 +51,9 @@ class App extends Component<AppProps, IAppState> {
     return (
       <>
       <Head>
-        <title>Wavect® Token - Pay in Crypto & Save Money</title>  
+        <title>Wavect  Token - Pay in Crypto & Save Money</title>  
         <meta name="description" 
-            content="Wavect® Token - Pay in Crypto & Save Money"/>
+            content="Wavect  Token - Pay in Crypto & Save Money"/>
         <meta name="keywords" content="wavect,token,crypto,hightech,innovation,blockchain,artificial intelligence,ai,iot,internet-of-things,partner,freelancer,software,prototyping"/>
 
         <meta httpEquiv="cache-control" content="public"/>
@@ -61,7 +61,7 @@ class App extends Component<AppProps, IAppState> {
         <meta name="copyright" content="&copy; 2020 Wavect, Riedl Kevin"/>
    
         <meta property="og:site_name" content="Wavect.io" />
-        <meta property="og:title" content="Wavect® Token - Pay in Crypto & Save Money"/>
+        <meta property="og:title" content="Wavect  Token - Pay in Crypto & Save Money"/>
         <meta property="og:description" content="Become even more digitalized and settle invoices in crypto & earn WACT tokens."/>
         <meta property="og:url" content="https://token.wavect.io"/>
         <meta property="og:image" content={AssetService.getPath('logo_combination_registered.png')}/>

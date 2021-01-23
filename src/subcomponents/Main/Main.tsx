@@ -35,7 +35,7 @@ export class Main extends Component<IMainProps, IMainState> {
   }
 
   private loadMaintenanceScreen() {
-    return <h1 className="text-white" id={styles.maintenanceFont}><strong>Wavect<sup>®</sup> Token</strong><br />coming soon..</h1>
+    return <h1 className="text-white" id={styles.maintenanceFont}><strong>Wavect  Token</strong><br />coming soon..</h1>
   }
 
   render() {
